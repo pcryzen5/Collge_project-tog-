@@ -1,5 +1,6 @@
 import 'dart:convert'; // Import for base64Decode
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
 class StudentsByClassPage extends StatefulWidget {
@@ -70,8 +71,21 @@ class _StudentsByClassPageState extends State<StudentsByClassPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Students By Class"),
+      appBar: AppBar(backgroundColor: Color(0xE60C0569),
+        automaticallyImplyLeading: true, // Enables the back button
+        iconTheme: IconThemeData(
+          color: Colors.white, // Changes the back button color to blue
+        ),
+        title: Text(
+          'Students By Class',
+          style: GoogleFonts.inter( // Using Google Fonts
+            textStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              letterSpacing: 0.0,
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

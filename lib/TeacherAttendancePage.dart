@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:intl/intl.dart';
 
@@ -57,7 +58,22 @@ class _TeacherAttendancePageState extends State<TeacherAttendancePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("View Attendance")),
+      appBar:AppBar(backgroundColor: Color(0xE60C0569),
+        automaticallyImplyLeading: true, // Enables the back button
+        iconTheme: IconThemeData(
+          color: Colors.white, // Changes the back button color to blue
+        ),
+        title: Text(
+          'View Attendance',
+          style: GoogleFonts.inter( // Using Google Fonts
+            textStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              letterSpacing: 0.0,
+            ),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

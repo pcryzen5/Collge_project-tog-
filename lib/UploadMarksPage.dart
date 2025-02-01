@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
 class UploadMarksPage extends StatefulWidget {
@@ -150,7 +151,21 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Upload Marks"),
+        backgroundColor: Color(0xE60C0569),
+        automaticallyImplyLeading: true, // Enables the back button
+        iconTheme: IconThemeData(
+          color: Colors.white, // Changes the back button color to blue
+        ),
+        title: Text(
+          'Upload Marks',
+          style: GoogleFonts.inter( // Using Google Fonts
+            textStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              letterSpacing: 0.0,
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -158,7 +173,7 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
           key: _formKey,
           child: ListView(
             children: [
-              /// User ID (PRN Number)
+              /// User_ID (PRN Number)
               TextFormField(
                 controller: userIdController,
                 decoration: const InputDecoration(
@@ -264,7 +279,7 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
               /// Add Subject Button
               OutlinedButton(
                 onPressed: addSubject,
-                child: const Text("Add Subject"),
+                child: const Text("Add Subject",style: TextStyle(fontSize: 14, color: Color(0xff231D77)),),
               ),
               const SizedBox(height: 20),
 
@@ -273,7 +288,15 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
                 onPressed: isLoading ? null : uploadMarks,
                 child: isLoading
                     ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text("Upload Marks"),
+                    : const Text("Upload Marks",style: TextStyle(fontSize: 14, color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF231D77),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                ),
               ),
             ],
           ),

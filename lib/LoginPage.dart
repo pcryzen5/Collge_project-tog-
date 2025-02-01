@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:tog/WelcomePage.dart';
 
@@ -11,10 +12,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  String? username;
-  String? password;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // MongoDB connection string and collection name
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
   final String mongoUrl =
       "mongodb://purkaitshubham5:sam@students-shard-00-00.x3rdy.mongodb.net:27017,students-shard-00-01.x3rdy.mongodb.net:27017,students-shard-00-02.x3rdy.mongodb.net:27017/Teacher?ssl=true&replicaSet=atlas-123-shard-0&authSource=admin";
   final String collectionName = "teacher";
@@ -27,15 +29,14 @@ class _LoginPageState extends State<LoginPage> {
 
       final collection = db.collection(collectionName);
 
-      // Find the user with the provided username and password
       final user = await collection.findOne({
         "username": username,
-        "password": password, // Note: Passwords should be hashed in production
+        "password": password,
+        //"classes": classes,
       });
 
       await db.close();
-
-      return user; // Return the user document if found
+      return user;
     } catch (e) {
       print("Error connecting to MongoDB: $e");
       return null;
@@ -44,63 +45,133 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-
-      final user = await _validateCredentials(username!, password!);
+      final user = await _validateCredentials(
+          _usernameController.text, _passwordController.text);
 
       if (user != null) {
-        // Extract department from user document
-        final department = user["department"] ?? "Unknown Department";
+        // Get professor name from database
+        final String professorName = user["professor"] ?? "Unknown Professor";
+
+        // Get classes array from database (convert to List<String>)
+        final List<String> classes = List<String>.from(user["classes"] ?? []);
 
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => WelcomePage(
-              teacherName: username!,
-              department: department,
+              teacherName: professorName, // Pass professor name
+              department: "Computer Science", // You can replace with actual department if needed
+              classes: classes, // Pass list of classes
             ),
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Invalid credentials!")),
+          const SnackBar(
+            content: Text("Invalid credentials!"),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
   }
 
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Teacher Login"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: "Username"),
-                validator: (value) =>
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Teacher Login',
+            style: GoogleFonts.inter(fontSize: 22, color: Colors.black),
+          ),
+          elevation: 2,
+        ),
+        body: Center(
+          child: Container(
+            width: 300,
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4,
+                  color: Colors.grey.shade500,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Login',
+                    style: GoogleFonts.robotoMono(fontSize: 22),
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    validator: (value) =>
                     value!.isEmpty ? "Please enter your username" : null,
-                onSaved: (value) => username = value,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: "Password"),
-                obscureText: true,
-                validator: (value) =>
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    validator: (value) =>
                     value!.isEmpty ? "Please enter your password" : null,
-                onSaved: (value) => password = value,
+                  ),
+                  SizedBox(height: 30),
+                  ElevatedButton(
+                    onPressed: _login,
+                    child: Text(
+                      'Login',
+                      style:
+                      GoogleFonts.inter(fontSize: 16, color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF231D77),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text("Login"),
-              ),
-            ],
+            ),
           ),
         ),
       ),

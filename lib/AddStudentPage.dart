@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import 'package:google_fonts/google_fonts.dart';
 
 class AddStudentPage extends StatefulWidget {
   const AddStudentPage({super.key});
@@ -118,7 +120,22 @@ class _AddStudentPageState extends State<AddStudentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add Student")),
+      appBar: AppBar(backgroundColor: Color(0xE60C0569),
+        automaticallyImplyLeading: true, // Enables the back button
+        iconTheme: IconThemeData(
+          color: Colors.white, // Changes the back button color to blue
+        ),
+        title: Text(
+          'Add Student',
+          style: GoogleFonts.inter( // Using Google Fonts
+            textStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              letterSpacing: 0.0,
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -191,9 +208,20 @@ class _AddStudentPageState extends State<AddStudentPage> {
                     value!.isEmpty ? "Enter e-books link" : null,
                 onSaved: (value) => ebooksLink = value,
               ),
+              const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: _pickImage,
-                child: const Text("Pick ID Card Image"),
+                child: const Text("Pick ID Card Image",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+                style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF231D77),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+        padding:
+        EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+      ),
               ),
               if (idCardImage != null)
                 Padding(
@@ -203,7 +231,15 @@ class _AddStudentPageState extends State<AddStudentPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _addStudentToDatabase,
-                child: const Text("Submit"),
+                child: const Text("Submit",style: TextStyle(fontSize: 16, color: Colors.white),),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF231D77),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                ),
               ),
             ],
           ),

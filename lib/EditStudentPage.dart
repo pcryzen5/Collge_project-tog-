@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
+import 'package:google_fonts/google_fonts.dart';
 
 class EditStudentPage extends StatefulWidget {
   const EditStudentPage({super.key});
@@ -144,8 +145,21 @@ class _EditStudentPageState extends State<EditStudentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Edit/Delete Student"),
+      appBar:AppBar(backgroundColor: Color(0xE60C0569),
+        automaticallyImplyLeading: true, // Enables the back button
+        iconTheme: IconThemeData(
+          color: Colors.white, // Changes the back button color to blue
+        ),
+        title: Text(
+          'Edit/Delete student',
+          style: GoogleFonts.inter( // Using Google Fonts
+            textStyle: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              letterSpacing: 0.0,
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -163,7 +177,15 @@ class _EditStudentPageState extends State<EditStudentPage> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => fetchStudentByPRN(_prnController.text),
-              child: const Text("Search Student"),
+              child: const Text("Search Student",style: TextStyle(fontSize: 16, color: Colors.white),),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF231D77),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding:
+                EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              ),
             ),
             const SizedBox(height: 20),
 
@@ -234,15 +256,23 @@ class _EditStudentPageState extends State<EditStudentPage> {
 
                       ElevatedButton(
                         onPressed: updateStudentDetails,
-                        child: const Text("Update Student Details"),
-                      ),
+                        child: const Text("Update Student Details",style: TextStyle(fontSize: 16, color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF231D77),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        ),
+                        ),
                       const SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: deleteStudent,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                         ),
-                        child: const Text("Delete Student"),
+                        child: const Text("Delete Student",style: TextStyle(fontSize: 16, color: Colors.white),),
                       ),
                     ],
                   ),
