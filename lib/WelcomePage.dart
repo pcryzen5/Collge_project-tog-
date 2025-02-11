@@ -8,12 +8,12 @@ import 'ViewStudent.dart';
 import 'MarkAttendancePage.dart';
 import 'UploadAnnouncementPage.dart';
 import 'TeacherAttendancePage.dart';
-import 'package:tog/LoginPage.dart';
+import 'ViewMarksPage.dart'; // Import Marks Page
 
 class WelcomePage extends StatelessWidget {
   final String teacherName;
   final String department;
-  final List<String> classes; // List of assigned classes
+  final List<String> classes;
 
   const WelcomePage({
     Key? key,
@@ -24,7 +24,6 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -37,201 +36,82 @@ class WelcomePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Profile Section
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
-                ),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Profile Picture on Left
-                  const CircleAvatar(
-                    radius: 75,
-                    backgroundImage: AssetImage('assets/logo.png'),
-                  ),
-                  const SizedBox(width: 16),
-
-                  // Name and Details on Right
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                        Text(
-                          'Full name: $teacherName',
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 22,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          "College: Hinduja College",
-                          style: TextStyle(color: Colors.black45, fontSize: 16),
-                        ),
-                        const SizedBox(height: 10,),
-
-                        // Display Assigned Classes
-                        Text(
-                          "Assigned Classes:",
-                          style: const TextStyle(
-                            color: Colors.black38,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Container(
-                          width: 125,
-                          child: TextFormField(
-                            controller: TextEditingController(text: classes.join(", ")), // Convert list to string
-                            focusNode: FocusNode(),
-                            readOnly: true, // Make it non-editable
-                            decoration: InputDecoration(
-                              isDense: true,
-                              labelText: 'Assigned Classes',
-                              hintText: 'No classes assigned', // Default hint if empty
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent, width: 1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent, width: 1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red, width: 1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red, width: 1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              filled: true,
-                              fillColor: Colors.grey[200], // Background color
-                            ),
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 16,
-                              color: Colors.black87,
-                            ),
-                            maxLines: 5,
-                            minLines: 1,
-                            cursorColor: Colors.black,
-                          ),
-                        )
-
-
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
-              child: Text(
-                'College: K.P.B Hinduja College of Arts \n and Commerce',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontFamily: 'Inter Tight',
-                  letterSpacing: 0.0,
-                  decoration: TextDecoration.underline,
-                  fontSize: 20, // Set your desired font size here
-                  fontWeight: FontWeight.w600, // Set your desired font weight here
-                ),
-              ),
-            ),
-
-            Divider(
-              thickness: 18,
-              color: Color(0xE60C0569),
-            ),
-            const SizedBox(height: 20),
-
-            // Action Sections
+            _buildProfileSection(),
             _buildActionSection(
               title: "Student Management",
               buttons: [
-                _buildActionButton(
-                  context, "Add Student", () => _navigate(context, AddStudentPage()),
-                  width: 150, height: 40,
-                ),
-                _buildActionButton(
-                  context, "Edit/Delete Student", () => _navigate(context, EditStudentPage()),
-                  width: 250, height: 40,
-                ),
+                _buildActionButton(context, "Add Student", () => _navigate(context, AddStudentPage())),
+                _buildActionButton(context, "Edit/Delete Student", () => _navigate(context, EditStudentPage())),
               ],
             ),
-
             _buildActionSection(
               title: "Marks Management",
               buttons: [
-                _buildActionButton(
-                  context, "Upload Marks", () => _navigate(context, UploadMarksPage()),
-                  width: 150, height: 40,
-                ),
+                _buildActionButton(context, "Upload Marks", () => _navigate(context, UploadMarksPage())),
+                _buildActionButton(context, "View Marks", () => _navigate(context, ViewMarksPage())), // New Button
               ],
             ),
-
             _buildActionSection(
               title: "Schedule Management",
               buttons: [
-                _buildActionButton(
-                  context, "Upload Schedule", () => _navigate(context, UploadSchedulePage()),
-                  width: 250, height: 40,
-                ),
+                _buildActionButton(context, "Upload Schedule", () => _navigate(context, UploadSchedulePage())),
               ],
             ),
-
             _buildActionSection(
               title: "Notice Management",
               buttons: [
-                _buildActionButton(
-                  context, "Upload Notice", () => _navigate(context, UploadNoticePage()),
-                  width: 150, height: 40,
-                ),
-                _buildActionButton(
-                  context, "Upload Announcement", () => _navigate(context, UploadAnnouncementPage()),
-                  width: 250, height: 40,
-                ),
+                _buildActionButton(context, "Upload Notice", () => _navigate(context, UploadNoticePage())),
+                _buildActionButton(context, "Upload Announcement", () => _navigate(context, UploadAnnouncementPage())),
               ],
             ),
-
             _buildActionSection(
               title: "Attendance",
               buttons: [
-                _buildActionButton(
-                  context, "Mark Attendance", () => _navigate(context, MarkAttendancePage()),
-                  width: 250, height: 40,
-                ),
-                _buildActionButton(
-                  context, "View Attendance", () => _navigate(context, TeacherAttendancePage()),
-                  width: 250, height: 40,
-                ),
+                _buildActionButton(context, "Mark Attendance", () => _navigate(context, MarkAttendancePage())),
+                _buildActionButton(context, "View Attendance", () => _navigate(context, TeacherAttendancePage())),
               ],
             ),
-
             _buildActionSection(
               title: "Student Details",
               buttons: [
-                _buildActionButton(
-                  context, "Display Students", () => _navigate(context, StudentsByClassPage()),
-                  width: 250, height: 40,
-                ),
+                _buildActionButton(context, "Display Students", () => _navigate(context, StudentsByClassPage())),
               ],
             ),
-
             const SizedBox(height: 30),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildProfileSection() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const CircleAvatar(
+            radius: 75,
+            backgroundImage: AssetImage('assets/logo.png'),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Full name: $teacherName', style: const TextStyle(fontSize: 22)),
+                const SizedBox(height: 5),
+                const Text("College: Hinduja College", style: TextStyle(color: Colors.black45, fontSize: 16)),
+                const SizedBox(height: 10),
+                Text("Assigned Classes: ${classes.join(", ")}", style: const TextStyle(fontSize: 16)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -254,13 +134,7 @@ class WelcomePage extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           ...buttons,
         ],
@@ -268,35 +142,23 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(BuildContext context, String text, VoidCallback onPressed, {double width = 280, double height = 50}) {
+  Widget _buildActionButton(BuildContext context, String text, VoidCallback onPressed) {
     return Container(
-      width: width,
-      height: height,
+      width: 250,
+      height: 45,
       margin: const EdgeInsets.symmetric(vertical: 6),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF0C0569),
-          padding: EdgeInsets.symmetric(vertical: height *0.1),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: height * 0.4,
-          ),
-        ),
+        child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 16)),
       ),
     );
   }
 
   void _navigate(BuildContext context, Widget page) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => page),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
 }
