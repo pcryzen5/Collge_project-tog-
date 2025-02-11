@@ -46,22 +46,25 @@ class _LoginPageState extends State<LoginPage> {
   void _login() async {
     if (_formKey.currentState!.validate()) {
       final user = await _validateCredentials(
-          _usernameController.text, _passwordController.text);
+        _usernameController.text, _passwordController.text,
+      );
 
       if (user != null) {
         // Get professor name from database
         final String professorName = user["professor"] ?? "Unknown Professor";
 
-        // Get classes array from database (convert to List<String>)
-        final List<String> classes = List<String>.from(user["classes"] ?? []);
+        // Ensure classes is a List<String>
+        final List<String> classes = user["classes"] is List
+            ? List<String>.from(user["classes"])
+            : [];
 
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => WelcomePage(
-              teacherName: professorName, // Pass professor name
-              department: "Computer Science", // You can replace with actual department if needed
-              classes: classes, // Pass list of classes
+              teacherName: professorName,
+              department: "Computer Science",
+              classes: classes,
             ),
           ),
         );
@@ -75,6 +78,8 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
+
+
 
 
   @override

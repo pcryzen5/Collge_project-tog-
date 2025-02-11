@@ -88,13 +88,47 @@ class WelcomePage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: classes.map((cls) => Text(
-                            "- $cls",
-                            style: const TextStyle(color: Colors.black45, fontSize: 16),
-                          )).toList(),
-                        ),
+                        Container(
+                          width: 125,
+                          child: TextFormField(
+                            controller: TextEditingController(text: classes.join(", ")), // Convert list to string
+                            focusNode: FocusNode(),
+                            readOnly: true, // Make it non-editable
+                            decoration: InputDecoration(
+                              isDense: true,
+                              labelText: 'Assigned Classes',
+                              hintText: 'No classes assigned', // Default hint if empty
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              filled: true,
+                              fillColor: Colors.grey[200], // Background color
+                            ),
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: 16,
+                              color: Colors.black87,
+                            ),
+                            maxLines: 5,
+                            minLines: 1,
+                            cursorColor: Colors.black,
+                          ),
+                        )
+
+
                       ],
                     ),
                   ),
@@ -243,7 +277,7 @@ class WelcomePage extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF0C0569),
-          padding: EdgeInsets.symmetric(vertical: height * 0.1),
+          padding: EdgeInsets.symmetric(vertical: height *0.1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
