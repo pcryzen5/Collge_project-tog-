@@ -8,7 +8,7 @@ import 'ViewStudent.dart';
 import 'MarkAttendancePage.dart';
 import 'UploadAnnouncementPage.dart';
 import 'TeacherAttendancePage.dart';
-import 'ViewMarksPage.dart'; // Import Marks Page
+import 'ViewMarksPage.dart';
 
 class WelcomePage extends StatelessWidget {
   final String teacherName;

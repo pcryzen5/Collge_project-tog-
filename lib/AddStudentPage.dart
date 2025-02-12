@@ -44,14 +44,14 @@ class _AddStudentPageState extends State<AddStudentPage> {
 
     _formKey.currentState!.save();
 
-    // Check if user_id already exists in the database
+
     final existingStudent = await _checkUserIdDuplicate(userId!);
     if (existingStudent != null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
             content: Text("Duplicate user_id! This ID already exists.")),
       );
-      return; // Prevent the insert if duplicate is found
+      return;
     }
 
     try {
@@ -104,7 +104,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
       await db.open();
       final collection = db.collection('students');
 
-      // Check if a student with the same user_id already exists
+
       final existingStudent =
           await collection.findOne(mongo.where.eq('user_id', userId));
 
@@ -121,9 +121,9 @@ class _AddStudentPageState extends State<AddStudentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Color(0xE60C0569),
-        automaticallyImplyLeading: true, // Enables the back button
+        automaticallyImplyLeading: true,
         iconTheme: IconThemeData(
-          color: Colors.white, // Changes the back button color to blue
+          color: Colors.white,
         ),
         title: Text(
           'Add Student',

@@ -146,9 +146,9 @@ class _EditStudentPageState extends State<EditStudentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(backgroundColor: Color(0xE60C0569),
-        automaticallyImplyLeading: true, // Enables the back button
+        automaticallyImplyLeading: true,
         iconTheme: IconThemeData(
-          color: Colors.white, // Changes the back button color to blue
+          color: Colors.white,
         ),
         title: Text(
           'Edit/Delete student',

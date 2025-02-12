@@ -14,17 +14,16 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
   final _titleController = TextEditingController();
   final _professorController = TextEditingController();
   final _notesController = TextEditingController();
-  String? _selectedClass; // Variable to hold selected class
+  String? _selectedClass;
   DateTime? selectedDateTime;
   bool isLoading = false;
-  List<String> availableClasses = []; // List to store available classes
+  List<String> availableClasses = [];
 
   final String mongoUri = "mongodb://purkaitshubham5:sam@students-shard-00-00.x3rdy.mongodb.net:27017,students-shard-00-01.x3rdy.mongodb.net:27017,students-shard-00-02.x3rdy.mongodb.net:27017/mdbuser_test_db?ssl=true&replicaSet=atlas-123-shard-0&authSource=admin";
   final String dbteach = "mongodb://purkaitshubham5:sam@students-shard-00-00.x3rdy.mongodb.net:27017,students-shard-00-01.x3rdy.mongodb.net:27017,students-shard-00-02.x3rdy.mongodb.net:27017/Teacher?ssl=true&replicaSet=atlas-123-shard-0&authSource=admin";
   final String collectionName = "schedules";
 
-  // Fetch available classes for the teacher
-  // Fetch available classes for the teacher
+
   Future<void> fetchAvailableClasses() async {
     try {
       final db = await mongo.Db.create(dbteach);
@@ -37,14 +36,13 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
       );
 
       if (teacherData != null) {
-        // Debugging: Print the teacher data to check the format
+
         print("Teacher data found: $teacherData");
 
         setState(() {
           availableClasses = List<String>.from(teacherData['classes'] ?? []);
         });
       } else {
-        // Debugging: Print message if no teacher data is found
         print("No teacher data found for professor: ${_professorController.text.trim()}");
       }
 
@@ -130,13 +128,12 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
         const SnackBar(content: Text("Schedule uploaded successfully!")),
       );
 
-      // Clear all fields after successful upload
       _titleController.clear();
       _professorController.clear();
       _notesController.clear();
       setState(() {
         selectedDateTime = null;
-        _selectedClass = null; // Clear the class selection
+        _selectedClass = null;
       });
     } catch (e) {
       setState(() {
@@ -151,7 +148,7 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
   @override
   void initState() {
     super.initState();
-    // Fetch available classes when the professor field is populated
+
     _professorController.addListener(() {
       fetchAvailableClasses();
     });
@@ -169,13 +166,13 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(backgroundColor: Color(0xE60C0569),
-        automaticallyImplyLeading: true, // Enables the back button
+        automaticallyImplyLeading: true,
         iconTheme: IconThemeData(
-          color: Colors.white, // Changes the back button color to blue
+          color: Colors.white,
         ),
         title: Text(
           'Upload Schedule',
-          style: GoogleFonts.inter( // Using Google Fonts
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: Colors.white,
               fontSize: 22,
@@ -190,7 +187,6 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
           key: _formKey,
           child: ListView(
             children: [
-              // DateTime selection with formatted text and button
               Row(
                 children: [
                   Text(formatDateTime(selectedDateTime)),
@@ -211,7 +207,7 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
               ),
               const SizedBox(height: 10),
 
-              // Title Field
+              // Title
               TextFormField(
                 controller: _titleController,
                 decoration: const InputDecoration(
@@ -227,7 +223,7 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
               ),
               const SizedBox(height: 10),
 
-              // Professor Name Field
+              // Professor Name
               TextFormField(
                 controller: _professorController,
                 decoration: const InputDecoration(
@@ -270,7 +266,7 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
               ),
               const SizedBox(height: 10),
 
-              // Notes Field
+              // Notes
               TextFormField(
                 controller: _notesController,
                 decoration: const InputDecoration(
@@ -281,7 +277,7 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
               ),
               const SizedBox(height: 20),
 
-              // Upload Button
+              // Upload
               ElevatedButton(
                 onPressed: isLoading ? null : uploadSchedule,
                 child: const Text("Upload Schedule",style: TextStyle(fontSize: 14, color: Colors.white),),

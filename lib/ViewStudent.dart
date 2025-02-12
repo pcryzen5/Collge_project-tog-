@@ -38,13 +38,13 @@ class _StudentsByClassPageState extends State<StudentsByClassPage> {
           "mongodb://purkaitshubham5:sam@students-shard-00-00.x3rdy.mongodb.net:27017,students-shard-00-01.x3rdy.mongodb.net:27017,students-shard-00-02.x3rdy.mongodb.net:27017/mdbuser_test_db?ssl=true&replicaSet=atlas-123-shard-0&authSource=admin");
       await db.open();
       studentsCollection =
-          db.collection('students'); // Replace with your collection name
+          db.collection('students');
     } catch (e) {
       debugPrint("Error initializing database: $e");
     }
   }
 
-  /// Fetch students based on the selected class
+
   Future<void> fetchStudents() async {
     if (selectedClass == null) return;
 
@@ -72,13 +72,13 @@ class _StudentsByClassPageState extends State<StudentsByClassPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Color(0xE60C0569),
-        automaticallyImplyLeading: true, // Enables the back button
+        automaticallyImplyLeading: true,
         iconTheme: IconThemeData(
-          color: Colors.white, // Changes the back button color to blue
+          color: Colors.white,
         ),
         title: Text(
           'Students By Class',
-          style: GoogleFonts.inter( // Using Google Fonts
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -91,7 +91,6 @@ class _StudentsByClassPageState extends State<StudentsByClassPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Dropdown to select class
             DropdownButtonFormField<String>(
               value: selectedClass,
               decoration: const InputDecoration(
@@ -113,7 +112,6 @@ class _StudentsByClassPageState extends State<StudentsByClassPage> {
             ),
             const SizedBox(height: 20),
 
-            // Display students list
             Expanded(
               child: isLoading
                   ? const Center(child: CircularProgressIndicator())

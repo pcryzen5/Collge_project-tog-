@@ -78,7 +78,7 @@ class _TeacherAttendancePageState extends State<TeacherAttendancePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Input Field for User ID (PRN)
+            // Input Field for User_ID (PRN)
             TextField(
               controller: userIdController,
               decoration: InputDecoration(

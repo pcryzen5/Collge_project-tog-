@@ -24,7 +24,7 @@ class _ViewMarksPageState extends State<ViewMarksPage> {
       await db.open();
       var collection = db.collection("students");
 
-      // Fetch student by user_id (PRN)
+      // Fetch student by PRNno.
       var student = await collection.findOne(mongo.where.eq("user_id", prnController.text));
 
       setState(() {
@@ -51,7 +51,12 @@ class _ViewMarksPageState extends State<ViewMarksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("View Marks"),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text("View Marks",
+          style: TextStyle(color: Colors.white)
+        ),
         backgroundColor: const Color(0xFF0C0569),
       ),
       body: Padding(

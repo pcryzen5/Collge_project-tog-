@@ -67,7 +67,7 @@ class _UploadAnnouncementPageState extends State<UploadAnnouncementPage> {
       appBar:AppBar(backgroundColor: Color(0xE60C0569),
         automaticallyImplyLeading: true, // Enables the back button
         iconTheme: IconThemeData(
-          color: Colors.white, // Changes the back button color to blue
+          color: Colors.white,
         ),
         title: Text(
           'Upload Announcement',

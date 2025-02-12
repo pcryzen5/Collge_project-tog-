@@ -50,10 +50,9 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (user != null) {
-        // Get professor name from database
         final String professorName = user["professor"] ?? "Unknown Professor";
 
-        // Ensure classes is a List<String>
+
         final List<String> classes = user["classes"] is List
             ? List<String>.from(user["classes"])
             : [];

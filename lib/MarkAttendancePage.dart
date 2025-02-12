@@ -10,9 +10,10 @@ class MarkAttendancePage extends StatefulWidget {
 }
 
 class _MarkAttendancePageState extends State<MarkAttendancePage> {
-  // Your existing MongoDB URL and collection names
+  // student database url
   final String studentMongoUrl =
       "mongodb://purkaitshubham5:sam@students-shard-00-00.x3rdy.mongodb.net:27017,students-shard-00-01.x3rdy.mongodb.net:27017,students-shard-00-02.x3rdy.mongodb.net:27017/mdbuser_test_db?ssl=true&replicaSet=atlas-123-shard-0&authSource=admin";
+  // teacher database url
   final String teacherMongoUrl =
       "mongodb://purkaitshubham5:sam@students-shard-00-00.x3rdy.mongodb.net:27017,students-shard-00-01.x3rdy.mongodb.net:27017,students-shard-00-02.x3rdy.mongodb.net:27017/Teacher?ssl=true&replicaSet=atlas-123-shard-0&authSource=admin";
   final String studentsCollectionName = "students";
@@ -53,7 +54,7 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
     }
   }
 
-  // Fetch classes available for the professor (similar to UploadSchedulePage)
+  // Fetch classes for the professor(similar to UploadSchedulePage)
   Future<void> fetchProfessorClasses(String professorName) async {
     if (teacherDb == null || teacherDb!.state != mongo.State.OPEN) {
       debugPrint("Teacher database is not ready yet.");
@@ -66,13 +67,11 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
 
     try {
       final teachersCollection = teacherDb!.collection(teachersCollectionName);
-
-      // Case-insensitive regex query
       final professorDoc = await teachersCollection.findOne({
         "professor": {
           "\$regex": professorName,
           "\$options": "i"
-        } // Case-insensitive
+        }
       });
 
       if (professorDoc != null && professorDoc["classes"] != null) {
@@ -96,7 +95,6 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
     }
   }
 
-  // Fetch students for the selected class
   Future<void> fetchStudents(String className) async {
     if (studentDb == null) return;
 
@@ -122,10 +120,10 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
     }
   }
 
-  // Mark attendance for a student
+  // Mark attendance for students
   Future<void> markAttendance(
       String userId, String subject, bool isPresent) async {
-    // Ensure the database connection is open
+    // Ensure the database is open
     if (studentDb == null || studentDb!.state != mongo.State.OPEN) {
       debugPrint("Student database is not connected.");
       return;
@@ -139,14 +137,14 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
         "$attendanceCollectionNamePrefix${currentDate.month}_${currentDate.year}";
 
     try {
-      // Access the attendance database and collection
+      // Access attendance database and collection
       final attendanceDb = await mongo.Db.create(
           studentMongoUrl.replaceFirst("/mdbuser_test_db", "/attendance"));
       await attendanceDb.open();
       final attendanceCollection =
           attendanceDb.collection(attendanceCollectionName);
 
-      // Fetch student details from the "students" collection
+      // Fetch student details from student collection
       final studentsCollection = studentDb!.collection(studentsCollectionName);
       final studentDetails =
           await studentsCollection.findOne({"user_id": userId});
@@ -159,12 +157,12 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
       final rollNo = studentDetails["roll_no"];
       final className = studentDetails["class_name"];
 
-      // Check if the attendance document for the student exists
+
       final existingAttendance =
           await attendanceCollection.findOne({"user_id": userId});
 
       if (existingAttendance == null) {
-        // Insert a new attendance record
+        // Insert new attendance
         final newAttendance = {
           "user_id": userId,
           "roll_no": rollNo,
@@ -176,16 +174,16 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
         await attendanceCollection.insertOne(newAttendance);
         debugPrint("New attendance record created for $userId: $newAttendance");
       } else {
-        // Update the existing attendance document
+        // Update existing attendance
         final updatedAttendance = existingAttendance["attendance"] ?? {};
 
-        // Check if the subject already exists in the attendance object
+        // Check if the subject already exists in attendance coll
         if (!updatedAttendance.containsKey(subject)) {
           updatedAttendance[subject] = {};
         }
         updatedAttendance[subject][attendanceField] = isPresent;
 
-        // Update the document in MongoDB
+        // Update the document in mongodb
         await attendanceCollection.updateOne(
           mongo.where.eq("user_id", userId),
           mongo.modify.set("attendance", updatedAttendance),
@@ -217,13 +215,13 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Color(0xE60C0569),
-        automaticallyImplyLeading: true, // Enables the back button
+        automaticallyImplyLeading: true,
         iconTheme: IconThemeData(
-          color: Colors.white, // Changes the back button color to blue
+          color: Colors.white,
         ),
         title: Text(
           'Mark Attendance',
-          style: GoogleFonts.inter( // Using Google Fonts
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -244,7 +242,7 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
               onChanged: (value) {
                 professorName = value;
                 fetchProfessorClasses(
-                    value); // Fetch classes when professor name changes
+                    value); // Fetch classes 
               },
             ),
             const SizedBox(height: 16),

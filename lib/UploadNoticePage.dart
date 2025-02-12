@@ -142,13 +142,13 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Color(0xE60C0569),
-        automaticallyImplyLeading: true, // Enables the back button
+        automaticallyImplyLeading: true,
         iconTheme: IconThemeData(
-          color: Colors.white, // Changes the back button color to blue
+          color: Colors.white,
         ),
         title: Text(
           'Upload Schedule',
-          style: GoogleFonts.inter( // Using Google Fonts
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: Colors.white,
               fontSize: 22,
@@ -165,7 +165,7 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Title Field
+
                 const Text(
                   "Title",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -186,7 +186,7 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                 ),
                 const SizedBox(height: 20),
 
-                // Date & Time Picker
+                // Date&Time Picker
                 const Text(
                   "Date & Time",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -212,7 +212,7 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                 ),
                 const SizedBox(height: 20),
 
-                // Description Field
+                // Description field
                 const Text(
                   "Description",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -234,7 +234,7 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                 ),
                 const SizedBox(height: 20),
 
-                // Image Picker
+                // Image picker
                 const Text(
                   "Image",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),

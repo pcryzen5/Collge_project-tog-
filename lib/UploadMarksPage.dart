@@ -217,7 +217,6 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
               ),
               const SizedBox(height: 20),
 
-              /// Subject and Marks Fields
               ...subjects.asMap().entries.map((entry) {
                 int index = entry.key;
                 Map<String, TextEditingController> subject = entry.value;
@@ -276,14 +275,14 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
                 );
               }),
 
-              /// Add Subject Button
+              // Add Subject Button
               OutlinedButton(
                 onPressed: addSubject,
                 child: const Text("Add Subject",style: TextStyle(fontSize: 14, color: Color(0xff231D77)),),
               ),
               const SizedBox(height: 20),
 
-              /// Upload Button
+              // Upload Button
               ElevatedButton(
                 onPressed: isLoading ? null : uploadMarks,
                 child: isLoading
