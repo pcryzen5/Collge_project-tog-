@@ -193,7 +193,6 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
                   const Spacer(),
                   ElevatedButton(
                     onPressed: selectDateTime,
-                    child: const Icon(Icons.calendar_today,color: Colors.white,),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF231D77),
                       shape: RoundedRectangleBorder(
@@ -202,6 +201,7 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
                       padding:
                       EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     ),
+                    child: const Icon(Icons.calendar_today,color: Colors.white,),
                   ),
                 ],
               ),
@@ -280,7 +280,6 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
               // Upload
               ElevatedButton(
                 onPressed: isLoading ? null : uploadSchedule,
-                child: const Text("Upload Schedule",style: TextStyle(fontSize: 14, color: Colors.white),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF231D77),
                   shape: RoundedRectangleBorder(
@@ -289,6 +288,7 @@ class _UploadSchedulePageState extends State<UploadSchedulePage> {
                   padding:
                   EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                 ),
+                child: const Text("Upload Schedule",style: TextStyle(fontSize: 14, color: Colors.white),),
               ),
             ],
           ),

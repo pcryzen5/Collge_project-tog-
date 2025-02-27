@@ -198,7 +198,6 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: selectDateTime,
-                      child:const Icon(Icons.calendar_today,color: Colors.white,),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF231D77),
                         shape: RoundedRectangleBorder(
@@ -207,6 +206,7 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                         padding:
                         EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
+                      child:const Icon(Icons.calendar_today,color: Colors.white,),
                     ),
                   ],
                 ),
@@ -254,7 +254,6 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: selectImage,
-                      child: const Text("Upload Image",style: TextStyle(fontSize: 14, color: Colors.white),),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF231D77),
                         shape: RoundedRectangleBorder(
@@ -263,6 +262,7 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                         padding:
                         EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
+                      child: const Text("Upload Image",style: TextStyle(fontSize: 14, color: Colors.white),),
                     ),
                   ],
                 ),
@@ -278,7 +278,6 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: uploadNotice,
-                      child: const Text("Upload Notice",style: TextStyle(fontSize: 14, color: Colors.white),),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF231D77),
                         shape: RoundedRectangleBorder(
@@ -287,6 +286,7 @@ class _UploadNoticePageState extends State<UploadNoticePage> {
                         padding:
                         EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       ),
+                      child: const Text("Upload Notice",style: TextStyle(fontSize: 14, color: Colors.white),),
                     ),
                   ),
               ],

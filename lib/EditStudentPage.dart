@@ -177,7 +177,6 @@ class _EditStudentPageState extends State<EditStudentPage> {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () => fetchStudentByPRN(_prnController.text),
-              child: const Text("Search Student",style: TextStyle(fontSize: 16, color: Colors.white),),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF231D77),
                 shape: RoundedRectangleBorder(
@@ -186,6 +185,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                 padding:
                 EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               ),
+              child: const Text("Search Student",style: TextStyle(fontSize: 16, color: Colors.white),),
             ),
             const SizedBox(height: 20),
 
@@ -256,7 +256,6 @@ class _EditStudentPageState extends State<EditStudentPage> {
 
                       ElevatedButton(
                         onPressed: updateStudentDetails,
-                        child: const Text("Update Student Details",style: TextStyle(fontSize: 16, color: Colors.white),),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF231D77),
                           shape: RoundedRectangleBorder(
@@ -265,6 +264,7 @@ class _EditStudentPageState extends State<EditStudentPage> {
                           padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                         ),
+                        child: const Text("Update Student Details",style: TextStyle(fontSize: 16, color: Colors.white),),
                         ),
                       const SizedBox(height: 10),
                       ElevatedButton(

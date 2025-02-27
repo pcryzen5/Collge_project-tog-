@@ -131,7 +131,6 @@ class _UploadAnnouncementPageState extends State<UploadAnnouncementPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: uploadAnnouncement,
-                child: const Text("Upload Announcement",style: TextStyle(fontSize: 14, color: Colors.white),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF231D77),
                   shape: RoundedRectangleBorder(
@@ -140,6 +139,7 @@ class _UploadAnnouncementPageState extends State<UploadAnnouncementPage> {
                   padding:
                   EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 ),
+                child: const Text("Upload Announcement",style: TextStyle(fontSize: 14, color: Colors.white),),
               ),
             ],
           ),

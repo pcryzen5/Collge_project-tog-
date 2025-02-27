@@ -1,0 +1,71 @@
+classDiagram
+    class AddStudentPage {
+        +String title
+        +String description
+        +void uploadStudent()
+    }
+
+    class EditStudentPage {
+        +String prn
+        +void fetchStudentByPRN()
+        +void updateStudentDetails()
+        +void deleteStudent()
+    }
+
+    class LoginPage {
+        +String username
+        +String password
+        +void _login()
+    }
+
+    class MarkAttendancePage {
+        +String professorName
+        +void fetchProfessorClasses()
+        +void markAttendance()
+    }
+
+    class TeacherAttendancePage {
+        +String userId
+        +void fetchAttendance()
+    }
+
+    class UploadAnnouncementPage {
+        +String title
+        +String description
+        +void uploadAnnouncement()
+    }
+
+    class UploadMarksPage {
+        +String userId
+        +void uploadMarks()
+    }
+
+    class UploadNoticePage {
+        +String title
+        +String description
+        +void uploadNotice()
+    }
+
+    class ViewMarksPage {
+        +void displayMarks()
+    }
+
+    class ViewStudent {
+        +void displayStudentDetails()
+    }
+
+    class WelcomePage {
+        +void displayWelcomeMessage()
+    }
+
+    class Main {
+        +void main()
+    }
+
+    AddStudentPage --> EditStudentPage : "can edit"
+    EditStudentPage --> LoginPage : "requires login"
+    MarkAttendancePage --> TeacherAttendancePage : "marks attendance for"
+    UploadAnnouncementPage --> UploadMarksPage : "uploads announcements for"
+    UploadNoticePage --> UploadMarksPage : "uploads notices for"
+    ViewMarksPage --> ViewStudent : "views marks of"
+    WelcomePage --> Main : "entry point"

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
 class ViewMarksPage extends StatefulWidget {
+  const ViewMarksPage({super.key});
+
   @override
   _ViewMarksPageState createState() => _ViewMarksPageState();
 }
@@ -129,7 +131,7 @@ class _ViewMarksPageState extends State<ViewMarksPage> {
                         style: TextStyle(fontSize: 16),
                       ),
                     );
-                  }).toList(),
+                  }),
                   SizedBox(height: 10),
                 ],
               );

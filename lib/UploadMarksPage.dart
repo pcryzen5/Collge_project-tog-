@@ -285,9 +285,6 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
               // Upload Button
               ElevatedButton(
                 onPressed: isLoading ? null : uploadMarks,
-                child: isLoading
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text("Upload Marks",style: TextStyle(fontSize: 14, color: Colors.white),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF231D77),
                   shape: RoundedRectangleBorder(
@@ -296,6 +293,9 @@ class _UploadMarksPageState extends State<UploadMarksPage> {
                   padding:
                   EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                 ),
+                child: isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text("Upload Marks",style: TextStyle(fontSize: 14, color: Colors.white),),
               ),
             ],
           ),

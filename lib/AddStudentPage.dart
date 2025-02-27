@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
-import 'package:google_fonts/google_fonts.dart';
+
 
 class AddStudentPage extends StatefulWidget {
   const AddStudentPage({super.key});
@@ -211,9 +211,6 @@ class _AddStudentPageState extends State<AddStudentPage> {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: _pickImage,
-                child: const Text("Pick ID Card Image",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
                 style: ElevatedButton.styleFrom(
         backgroundColor: Color(0xFF231D77),
         shape: RoundedRectangleBorder(
@@ -222,6 +219,9 @@ class _AddStudentPageState extends State<AddStudentPage> {
         padding:
         EdgeInsets.symmetric(horizontal: 50, vertical: 10),
       ),
+                child: const Text("Pick ID Card Image",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
               ),
               if (idCardImage != null)
                 Padding(
@@ -231,7 +231,6 @@ class _AddStudentPageState extends State<AddStudentPage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _addStudentToDatabase,
-                child: const Text("Submit",style: TextStyle(fontSize: 16, color: Colors.white),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF231D77),
                   shape: RoundedRectangleBorder(
@@ -240,6 +239,7 @@ class _AddStudentPageState extends State<AddStudentPage> {
                   padding:
                   EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                 ),
+                child: const Text("Submit",style: TextStyle(fontSize: 16, color: Colors.white),),
               ),
             ],
           ),

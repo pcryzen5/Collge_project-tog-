@@ -14,8 +14,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final String mongoUrl =
       "mongodb://purkaitshubham5:sam@students-shard-00-00.x3rdy.mongodb.net:27017,students-shard-00-01.x3rdy.mongodb.net:27017,students-shard-00-02.x3rdy.mongodb.net:27017/Teacher?ssl=true&replicaSet=atlas-123-shard-0&authSource=admin";
@@ -159,11 +159,6 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: _login,
-                    child: Text(
-                      'Login',
-                      style:
-                      GoogleFonts.inter(fontSize: 16, color: Colors.white),
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF231D77),
                       shape: RoundedRectangleBorder(
@@ -171,6 +166,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       padding:
                       EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                    ),
+                    child: Text(
+                      'Login',
+                      style:
+                      GoogleFonts.inter(fontSize: 16, color: Colors.white),
                     ),
                   ),
                 ],

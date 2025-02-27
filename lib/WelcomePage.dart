@@ -16,11 +16,11 @@ class WelcomePage extends StatelessWidget {
   final List<String> classes;
 
   const WelcomePage({
-    Key? key,
+    super.key,
     required this.teacherName,
     required this.department,
     required this.classes,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
